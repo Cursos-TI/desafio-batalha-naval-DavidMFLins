@@ -15,6 +15,9 @@ int main() {
         printf("3) posicionar navio na horizontal\n");
         printf("4) Resetar tabuleiro\n");
         printf("5) exibir tabuleiro atual\n");
+        printf("6) Habilidade Especial: CRUZ\n");
+        printf("7) Habilidade Especial: CONE\n");
+        printf("8) Habilidade Especial: OCTAEDRO\n");
         printf("0) Sair\n");
         printf("Digite uma opção valida\n\n");
         
@@ -123,7 +126,89 @@ int main() {
                     }
                     printf("\n");
                 }
-                break;
+            break;
+            case 6:
+            {
+                printf("\n--- HABILIDADE: CRUZ ---\n");
+                int mascaraCruz[5][5] = {0};        
+                // Cruz
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 5; j++) {
+                        if (i == 2 || j == 2) {
+                            mascaraCruz[i][j] = 1;
+                        }
+                    }
+                }
+                int lOrigem = 3, cOrigem = 3; 
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 5; j++) {
+                        if (mascaraCruz[i][j] == 1) {
+                            int lImpacto = lOrigem + (i - 2);
+                            int cImpacto = cOrigem + (j - 2);
+                            if (lImpacto >= 0 && lImpacto < LINHAS && cImpacto >= 0 && cImpacto < COLUNAS) {
+                                tabuleiro[lImpacto][cImpacto] = 5;
+                            }
+                        }
+                    }
+                }
+                printf("Habilidade CRUZ ativada na coordenada [%d][%d]!\n", lOrigem, cOrigem);
+            }
+            break;
+            case 7:
+            {
+                printf("\n--- HABILIDADE: CONE ---\n");
+                int mascaraCone[5][5] = {0};
+                // cone
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 5; j++) {
+                        if (i >= 2 && i <= 4 && j >= (4 - i) && j <= i) {
+                            mascaraCone[i][j] = 1;
+                        }
+                    }
+                }
+                int lOrigem = 2, cOrigem = 7;
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 5; j++) {
+                        if (mascaraCone[i][j] == 1) {
+                            int lImpacto = lOrigem + (i - 2); 
+                            int cImpacto = cOrigem + (j - 2);
+                            if (lImpacto >= 0 && lImpacto < LINHAS && cImpacto >= 0 && cImpacto < COLUNAS) {
+                                tabuleiro[lImpacto][cImpacto] = 5;
+                            }
+                        }
+                    }
+                }
+                printf("Habilidade CONE ativada na coordenada [%d][%d]!\n", lOrigem, cOrigem);
+            }
+            break;
+            case 8:
+            {
+                printf("\n--- HABILIDADE: OCTAEDRO (LOSANGO) ---\n");
+                int mascaraOcta[5][5] = {0};
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 5; j++) {
+                        int distI = i - 2; if (distI < 0) distI = -distI;
+                        int distJ = j - 2; if (distJ < 0) distJ = -distJ;
+                        if (distI + distJ <= 2) {
+                            mascaraOcta[i][j] = 1;
+                        }
+                    }
+                }
+                int lOrigem = 7, cOrigem = 7;
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 5; j++) {
+                        if (mascaraOcta[i][j] == 1) {
+                            int lImpacto = lOrigem + (i - 2);
+                            int cImpacto = cOrigem + (j - 2);
+                            if (lImpacto >= 0 && lImpacto < LINHAS && cImpacto >= 0 && cImpacto < COLUNAS) {
+                                tabuleiro[lImpacto][cImpacto] = 5;
+                            }
+                        }
+                    }
+                }
+                printf("Habilidade OCTAEDRO ativada na coordenada [%d][%d]!\n", lOrigem, cOrigem);
+            }
+            break;
             default:
             break;
             }
